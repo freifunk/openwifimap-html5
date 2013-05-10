@@ -7,19 +7,28 @@ var OWMWidget = function (options, couchmapoptions) {
   }, options);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
-      return L.marker(nodedata.latlng, {title: nodedata.hostname})
+      return L.marker(nodedata.latlng, 
+        {
+          title: nodedata.hostname,
+          icon: L.icon( {iconUrl: 'images/node_circle.svg', iconSize: [30,30], iconAnchor: [15,15]})
+        })
         .bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
     },
     linkAdd: function(node1, node2, layer) {
-      var latlng1 = new L.LatLng(node1.data.latlng[0], node1.data.latlng[1]);
-      return L.polyline([node1.data.latlng, node2.data.latlng])
+      var latlng1 = new L.LatLng(node1.data.latlng[0], node1.data.latlng[1]),
+          distance = Math.round(latlng1.distanceTo(node2.data.latlng));
+      if (distance > 5e4) {
+        return;
+      }
+      return L.polyline([node1.data.latlng, node2.data.latlng], 
+          {color: '#85e805'})
         .bindPopup(
             'distance '
             + node1.data.hostname
             + ' ↔ '
             + node2.data.hostname
             + ': <br>'
-            + Math.round(latlng1.distanceTo(node2.data.latlng))
+            + distance
             + ' meters'
         ).addTo(layer);
     }
