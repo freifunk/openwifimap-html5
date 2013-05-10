@@ -2,10 +2,15 @@ var OWMWidget = function (options, couchmapoptions) {
   var widget = {};
   var options = L.extend({
     divId: 'map',
-    getPopupHTML: function () {},
+    getPopupHTML: function (nodedata) {return '<strong>'+nodedata.hostname+'</strong>';},
     onBBOXChange: function () {}
   }, options);
   var couchmapoptions = L.extend({
+    nodeAdd: function(nodedata, layer) {
+      return L.marker(nodedata.latlng, {
+        title: nodedata.hostname,
+      }).bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
+    }
   }, couchmapoptions);
   
   widget.map = L.map(options['divId']);
