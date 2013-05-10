@@ -1,11 +1,12 @@
-var OWMWidget = function (options) {
+var OWMWidget = function (options, couchmapoptions) {
   var widget = {};
   var options = L.extend({
     divId: 'map',
     getPopupHTML: function () {},
-    onBBOXChange: function () {},
-    couchmapoptions: {}
+    onBBOXChange: function () {}
   }, options);
+  var couchmapoptions = L.extend({
+  }, couchmapoptions);
   
   widget.map = L.map(options['divId']);
   
@@ -17,7 +18,7 @@ var OWMWidget = function (options) {
   // https://raw.github.com/shramov/leaflet-plugins/master/layer/tile/Bing.js
   var tile_bing = new L.BingLayer("ArewtcSllazYp52r7tojb64N94l-OrYWuS1GjUGeTavPmJP_jde3PIdpuYm24VpR");
   
-  var couchmap = new L.CouchMap(options.couchmapoptions);
+  var couchmap = new L.CouchMap(couchmapoptions);
   var couchlayers = couchmap.getLayers();
   
   widget.map.addLayer(couchlayers['nodes']).addLayer(couchlayers['links']);

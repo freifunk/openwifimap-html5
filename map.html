@@ -40,12 +40,13 @@
       }
 
       $(document).ready(function() {
-        var owmwidget = new OWMWidget({
-          couchmapoptions: {
-              couchUrl: 'http://couch.pberg.freifunk.net/openwifimap_dev/_design/owm-api/',
-              coarseThreshold: 100
-            }
-          });
+        var owmwidget = new OWMWidget(
+          {},
+          {
+            couchUrl: 'http://couch.pberg.freifunk.net/openwifimap_dev/_design/owm-api/',
+            coarseThreshold: 100
+          }
+        );
         
         function onResize() {
           $("#map").height( $(window).height() );
