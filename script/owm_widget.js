@@ -7,9 +7,21 @@ var OWMWidget = function (options, couchmapoptions) {
   }, options);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
-      return L.marker(nodedata.latlng, {
-        title: nodedata.hostname,
-      }).bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
+      return L.marker(nodedata.latlng, {title: nodedata.hostname})
+        .bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
+    },
+    linkAdd: function(node1, node2, layer) {
+      var latlng1 = new L.LatLng(node1.data.latlng[0], node1.data.latlng[1]);
+      return L.polyline([node1.data.latlng, node2.data.latlng])
+        .bindPopup(
+            'distance '
+            + node1.data.hostname
+            + ' ↔ '
+            + node2.data.hostname
+            + ': <br>'
+            + Math.round(latlng1.distanceTo(node2.data.latlng))
+            + ' meters'
+        ).addTo(layer);
     }
   }, couchmapoptions);
   
