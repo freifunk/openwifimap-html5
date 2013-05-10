@@ -40,7 +40,7 @@
       }
 
       $(document).ready(function() {
-        var mapwidget = new MapWidget({
+        var owmwidget = new OWMWidget({
           couchmapoptions: {
               couchUrl: 'http://couch.pberg.freifunk.net/openwifimap_dev/_design/owm-api/',
               coarseThreshold: 100
@@ -49,12 +49,12 @@
         
         function onResize() {
           $("#map").height( $(window).height() );
-          mapwidget.map.invalidateSize();
+          owmwidget.map.invalidateSize();
         }
 
         $(window).resize( onResize );
         onResize();
-        mapwidget.map.locate({setView: true, maxZoom: 15});
+        owmwidget.map.locate({setView: true, maxZoom: 15});
       });
     </script>
   </body>

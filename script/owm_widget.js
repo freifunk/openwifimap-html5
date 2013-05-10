@@ -1,4 +1,4 @@
-var MapWidget = function (options) {
+var OWMWidget = function (options) {
   var widget = {};
   var options = L.extend({
     divId: 'map',
