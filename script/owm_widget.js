@@ -7,6 +7,14 @@ var OWMWidget = function (options, couchmapoptions) {
   }, options);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
+      // ignore this node if mtime older than 7 days
+      var date = new Date();
+      date.setHours(date.getHours() - 24*7);
+      var nodedate = new Date(nodedata['mtime']);
+      if (nodedate<date) {
+        return null;
+      }
+
       return L.marker(nodedata.latlng, 
         {
           title: nodedata.hostname,
@@ -15,11 +23,13 @@ var OWMWidget = function (options, couchmapoptions) {
         .bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
     },
     linkAdd: function(node1, node2, layer) {
+      // ignore this link if distance > 50km
       var latlng1 = new L.LatLng(node1.data.latlng[0], node1.data.latlng[1]),
           distance = Math.round(latlng1.distanceTo(node2.data.latlng));
       if (distance > 5e4) {
         return;
       }
+
       return L.polyline([node1.data.latlng, node2.data.latlng], 
           {color: '#85e805'})
         .bindPopup(
