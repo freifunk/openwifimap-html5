@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>OpenWiFiMap</title>
+    <link rel="icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
+    <![endif]-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+    <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.ie.css" /><![endif]-->
+    <script src="http://danzel.github.com/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <script src="external/leaflet/Bing.js"></script>
+    <!--leaflet end-->
+
+    <script src="https://raw.github.com/andrenarchy/jquery-mobile-params/master/jquery-mobile-params.js"></script>
+    <script>
+      $(document).on("mobileinit", function(){
+        $.mobile.defaultHomeScroll = 0;
+      });
+    </script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+    <script src="external/icanhaz/ICanHaz.js"></script>
+
+
+    <script type="text/javascript">
+      /* <![CDATA[ */
+      (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+      })();
+    /* ]]> */
+    </script>
+  
+    <script src="http://andrenarchy.github.io/couchmap/script/couchmap.js"></script>
+
+    <link rel="stylesheet" href="style/owm_widget.css" />
+    <script src="script/owm_widget.js"></script>
+
+    <link rel="stylesheet" href="style/style.css" />
+    <script src="script/owm_app.js" type="text/javascript"></script>
+    <script id="mappopupmust" type="text/html">
+      <a href="#detail?node={{id}}" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b">
+        <span class="ui-btn-inner ui-btn-corner-all">
+          <span class="ui-btn-text">{{hostname}}</span>
+        </span>
+      </a>
+    </script>
+    <script id="mapiconsvg" type="text/html">
+      <svg width="{{w}}" height="{{h}}">
+        <defs>
+          <radialGradient id="gradfill" gradientUnits="userSpaceOnUse" cx="{{hw}}" cy="{{hh}}" r="{{r}}" fx="{{hw}}" fy="{{hh}}">
+            <stop offset="0%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="20%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="25%" style="stop-color:rgb(0,0,255); stop-opacity:0.75" />
+            <stop offset="30%" style="stop-color:rgb(0,0,255); stop-opacity:0.75" />
+            <stop offset="35%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="40%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="45%" style="stop-color:rgb(0,0,255); stop-opacity:0.55" />
+            <stop offset="50%" style="stop-color:rgb(0,0,255); stop-opacity:0.55" />
+            <stop offset="55%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="60%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="65%" style="stop-color:rgb(0,0,255); stop-opacity:0.35" />
+            <stop offset="70%" style="stop-color:rgb(0,0,255); stop-opacity:0.35" />
+            <stop offset="75%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="80%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+            <stop offset="85%" style="stop-color:rgb(0,0,255); stop-opacity:0.15" />
+            <stop offset="90%" style="stop-color:rgb(0,0,255); stop-opacity:0.15" />
+            <stop offset="95%" style="stop-color:rgb(0,0,255); stop-opacity:0" />
+          </radialGradient>
+          <radialGradient id="gradline" gradientUnits="userSpaceOnUse" cx="{{hw}}" cy="{{hh}}" r="{{r}}" fx="{{hw}}" fy="{{hh}}">
+            <stop offset="0%" style="stop-color:rgb(0,0,255); stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:0" />
+          </radialGradient>
+        </defs>
+        {{{paths}}}
+      </svg>
+    </script>
+    <script id="listmust" type="text/html">
+      <ul data-role="listview" id="listul">
+        {{#nodes}}
+        <li><a href="#detail?node={{id}}&bbox={{bbox}}" data-transition="slide">
+          <h3>{{hostname}}</h3>
+          <p>
+          {{#tags}}#{{.}} {{/tags}}
+          {{^tags}}&nbsp;{{/tags}}
+          </p>
+        </a></li>
+        {{/nodes}}
+      </ul>
+    </script>
+    <script id="detailmust" type="text/html">
+        <div class="titlecont">
+            <div id="avaframe">
+                <img id="avatar" src="images/wifi_icon60.png" />
+            </div>
+            <h2><a href="http://{{_id}}">{{hostname}}</a></h2>
+        </div>
+        <!--div data-role="collapsible-set"-->
+            <div data-role="collapsible" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-collapsed="false">
+                <h3>Map and address</h3>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a" id="detailmapcontainer"><div id="detailmap"></div></div>
+                    <div class="ui-block-b" id="detailaddrcontainer"><div class="ui-bar">
+                        <p>
+                        {{#postalAddress}}
+                            <h4>Postal address</h4>
+                            {{name}}<br/>
+                            {{street}}<br/>
+                            {{zip}} {{city}}<br/>
+                            {{country}}
+                        {{/postalAddress}}
+                        {{^postalAddress}}No address is stored for this node.{{/postalAddress}}
+                        </p>
+                        <a id="detailmapcenter" data-role="button" data-icon="home">Center map</a>
+                    </div></div>
+                </div>
+            </div>
+            {{#interfaces?}}
+            <div data-role="collapsible" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+                <h3>Network interfaces</h3>
+                {{#interfaces}}
+                <div data-role="collapsible" data-theme="c" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+                    <h4>Interface {{name}}</h4>
+                    <table class="fifty">
+                        {{#physicalType}}
+                        <tr>
+                            <td>Physical type</td>
+                            <td>{{physicalType}}</td>
+                        </tr>
+                        {{/physicalType}}
+                        {{#ipv4Addresses?}}
+                        <tr>
+                            <td>IPv4 addresses</td>
+                            <td>
+                                {{#ipv4Addresses}}
+                                {{.}}<br />
+                                {{/ipv4Addresses}}
+                            </td>
+                        </tr>
+                        {{/ipv4Addresses?}}
+                        {{#ipv6Addresses?}}
+                        <tr>
+                            <td>IPv6 addresses</td>
+                            <td>
+                                {{#ipv6Addresses}}
+                                {{.}}<br />
+                                {{/ipv6Addresses}}
+                            </td>
+                        </tr>
+                        {{/ipv6Addresses?}}
+                        {{#macAddress}}
+                        <tr>
+                            <td>MAC address</td>
+                            <td>{{macAddress}}</td>
+                        </tr>
+                        {{/macAddress}}
+                        {{#accessNote}}
+                        <tr>
+                            <td>Access Note</td>
+                            <td>{{accessNote}}</td>
+                        </tr>
+                        {{/accessNote}}
+                        {{#channel}}
+                        <tr>
+                            <td>Wireless Channel</td>
+                            <td>{{channel}}</td>
+                        </tr>
+                        {{/channel}}
+                        {{#ssid}}
+                        <tr>
+                            <td>Wireless SSID</td>
+                            <td>{{ssid}}</td>
+                        </tr>
+                        {{/ssid}}
+                        {{#bssid}}
+                        <tr>
+                            <td>Wireless BSSID</td>
+                            <td>{{bssid}}</td>
+                        </tr>
+                        {{/bssid}}
+                        {{#mode}}
+                        <tr>
+                            <td>Wireless Mode</td>
+                            <td>{{mode}}</td>
+                        </tr>
+                        {{/mode}}
+                        {{#txpower}}
+                        <tr>
+                            <td>Wireless TX Power</td>
+                            <td>{{txpower}} dBm</td>
+                        </tr>
+                        {{/txpower}}
+                    </table>
+                </div>
+               {{#wifi?}}
+                <div data-role="collapsible" data-theme="c" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+                    <h4>Wireless {{name}}</h4>
+                   {{#wifi}}
+                    <table class="fifty">
+                        <tr>
+                            <td><tr><td>Interface {{ifname}}</td><td></td></tr></td>
+                            <td>
+                <tr>
+                <td>{{ifname}} Device</td>
+                <td>{{device}}</td>
+                </tr>
+                            </td>
+                            <td>
+                <tr>
+                <td>{{ifname}} SSID</td>
+                <td>{{ssid}}</td>
+                </tr>
+                            </td>
+                            <td>
+                <tr>
+                <td>{{ifname}} BSSID</td>
+                <td>{{bssid}}</td>
+                </tr>
+                            </td>
+                            <td>
+                <tr>
+                <td>{{ifname}} Signal/Noise/Quality</td>
+                <td>{{signal}}/{{noise}}/{{quality}}</td>
+                </tr>
+                            </td>
+                            {{#assoclist?}}
+                            <td><tr><td>Association List</td><td></td></tr></td>
+                            {{#assoclist}}
+                            <td>
+                <tr>
+                <td>{{mac}} Signal/Noise/rx_rate/tx_rate</td>
+                <td>{{signal}}/{{noise}}/{{rx_rate}}/{{tx_rate}}</td>
+                </tr>
+                            </td>
+                            {{/assoclist}}
+                            {{/assoclist?}}
+                        </tr>
+                    </table>
+                   {{/wifi}}
+                </div>
+                {{/wifi?}}
+                {{/interfaces}}
+                <table class="fifty">
+                    <tr>
+                        <td>IPv4 default Gateway</td>
+                        <td>{{ipv4defaultGateway.gateway}} device:{{ipv6defaultGateway.dev}} metric:{{ipv6defaultGateway.metr}}</td>
+                    </tr>
+                    <tr>
+                        <td>IPv6 default Gateway</td>
+                        <td>{{ipv6defaultGateway.gateway}} device:{{ipv6defaultGateway.dev}} metric:{{ipv6defaultGateway.metr}}</td>
+                    </tr>
+                </table>
+            </div>
+            {{/interfaces?}}
+            {{#firmware}}
+            <div data-role="collapsible" data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+                <h3>Firmware</h3>
+                {{name}} {{revision}} from <a href="{{url}}">{{url}}</a>
+            </div>
+            {{/firmware}}
+            <a href="{{couchurl}}/{{_id}}" rel="external" data-role="button">full JSON dataset</a>
+        <!--/div-->
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><!--target-densitydpi=device-dpi-->
+  </head>
+
+  <body>
+    <div id="container">
+
+      <div data-role="page" data-theme="b" id="map">
+        <div data-role="header">
+          <h1>OpenWiFiMap</h1>
+        </div>
+        <div data-role="content">
+          <div id="mapdiv"></div>
+        </div>
+        <div data-role="footer">
+          <div class="ui-grid-b">
+            <div class="ui-block-a">
+              <a data-role="button" data-rel="popup" data-position-to="window" data-transition="fade" data-mini="false" onclick="$('#about').popup( 'open' )">About</a>
+              <div data-role="popup" id="about" data-theme="b" data-overlay-theme="a">
+                <div data-role="header">
+                  <h1>About</h1>
+                </div>
+                <div data-role="content" style="max-width: 400px;">
+                  <p>OpenWiFiMap is
+                  <ul>
+                    <li>free software licensed under the MIT License.</li>
+                    <li>available at <a href="https://github.com/andrenarchy/openwifimap">github</a>. Please submit code, bug reports or ideas for improvements there!</li>
+                    <li>meant to support free networks (free as in 'free speech', not 'free beer') like <a href="http://www.freifunk.net">freifunk</a>.</li>
+                    <li>a <a href="http://couchapp.org/page/index">CouchApp</a> and you can thus easily run your own instance by pushing it to your CouchDB server.</li>
+                    <li>written by <a href="https://twitter.com/andrenarchy">Andr&eacute; Gaul</a> with contributions from <a href="https://twitter.com/RhoTep">Andreas Pittrich</a> and <a href="https://twitter.com/PureSdrei">Daniel Pfisterer</a>.</li>
+                  </ul>
+                  The WiFi icon was created by <a href="http://commons.wikimedia.org/wiki/User:Canopus49">Canopus49</a> and is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA</a>.
+                  </p>
+                  <p>
+                  Donate with flattr:
+                  <a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://openwifimap.net"></a>
+                  <noscript><a href="http://flattr.com/thing/1154333/OpenWiFiMap" target="_blank">
+                      <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
+                  </a></noscript>
+                  </p>
+                  <a data-role="button" onclick="$('#about').popup( 'close' )" data-theme="b">Close</a>
+                </div>
+              </div>
+            </div>
+            <div class="ui-block-b"></div>
+            <div class="ui-block-c"><a id="listlink" href="#list" data-role="button" data-transition="slide" data-theme="b" data-icon="arrow-r" data-iconpos="right" data-mini="false">List</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-role="page" id="list" data-theme="b">
+        <div data-role="header">
+          <h1>OpenWiFiMap &ndash; List</h1>
+        </div>
+        <div data-role="content"> 
+          <div id="listdiv"> 
+          </div>
+        </div>
+        <div data-role="footer">
+          <div class="ui-grid-b">
+            <div class="ui-block-a"><a id="maplink" href="#map" data-role="button" data-transition="slide" data-direction="reverse" data-theme="b" data-icon="arrow-l" data-iconpos="left" data-mini="false">Map</a></div>
+            <div class="ui-block-b"></div>
+            <div class="ui-block-c"></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-role="page" id="detail" data-theme="b">
+        <div data-role="header">
+          <h1>OpenWiFiMap &ndash; Details</h1>
+        </div>
+        <div data-role="content">
+          <div id="detaildiv" data-role="content">
+          </div>
+        </div>
+        <div data-role="footer">
+          <div class="ui-grid-b">
+            <div class="ui-block-a"><a id="detailback" href="#map" data-role="button" data-transition="slide" data-direction="reverse" data-theme="b" data-icon="arrow-l" data-iconpos="left" data-mini="false">Map</button></a></div>
+          <div class="ui-block-b"></div>
+          <div class="ui-block-c"></div>
+        </div>
+      </div>
+    </div>
+
+  <!--/div-->
+  </body>
+</html>

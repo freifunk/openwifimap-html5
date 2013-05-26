@@ -1,0 +1,75 @@
+html, body, #map, #mapdiv, #detailmap {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#mapdiv {
+    height: 100%;
+    width: 100%;
+}
+
+div#container {
+    height: 100%;
+    width: 100%;
+}
+#container > div[data-role="page"] > div[data-role="header"] {
+    height: 52px;
+    width: 100%;
+}
+#container > div[data-role="page"] > div[data-role="content"] {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    bottom: 61px;
+    padding: 0;
+    overflow: auto;
+}
+#container > div[data-role="page"] > div[data-role="footer"] {
+    height: 59px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+#listul {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+table.fifty td {
+    vertical-align: top;
+    padding: 6px;
+    width: 50%;
+}
+table.fifty tr:nth-child(even) {
+    background-color: #e0e0e0;
+}
+
+#avatar {
+    vertical-align: middle;
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 5px;
+}
+
+#avaframe {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    padding: 5px;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    margin-right: 5px;
+    background-color: #eeeeee;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.titlecont h2 {
+    display: inline-block;
+}
