@@ -7,20 +7,20 @@ var OWMWidget = function (options, couchmapoptions) {
   }, options);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
-      // ignore this node if mtime older than 7 days
-      var date = new Date();
-      date.setHours(date.getHours() - 24*7);
-      var nodedate = new Date(nodedata['mtime']);
-      if (nodedate<date) {
-        return null;
-      }
-
       return L.marker(nodedata.latlng, 
         {
           title: nodedata.hostname,
           icon: L.icon( {iconUrl: 'images/node_circle.svg', iconSize: [30,30], iconAnchor: [15,15]})
         })
         .bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
+    },
+    nodeFilter: function(nodedata) {
+      // ignore this node if mtime older than 7 days
+      var date = new Date();
+      date.setHours(date.getHours() - 24*7);
+      var nodedate = new Date(nodedata['mtime']);
+      console.log(nodedate)
+      return nodedate > date;
     },
     linkAdd: function(node1, node2, layer) {
       // ignore this link if distance > 50km
