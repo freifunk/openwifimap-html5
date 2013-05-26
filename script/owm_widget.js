@@ -1,10 +1,11 @@
-var OWMWidget = function (options, couchmapoptions) {
+var OWMWidget = function (options, mapoptions, couchmapoptions) {
   var widget = {};
   var options = L.extend({
     divId: 'map',
     getPopupHTML: function (nodedata) {return '<strong>'+nodedata.hostname+'</strong>';},
     onBboxChange: function () {}
   }, options);
+  var mapoptions = L.extend({}, mapoptions);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
       return L.marker(nodedata.latlng, 
@@ -43,7 +44,7 @@ var OWMWidget = function (options, couchmapoptions) {
     }
   }, couchmapoptions);
   
-  widget.map = L.map(options['divId']);
+  widget.map = L.map(options['divId'], mapoptions);
   
   var tile_cloudmade = L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
       key: 'e4e152a60cc5414eb81532de3d676261',
