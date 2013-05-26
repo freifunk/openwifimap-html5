@@ -56,7 +56,8 @@
 
         $(window).resize( onResize );
         onResize();
-        owmwidget.map.locate({setView: true, maxZoom: 15});
+        owmwidget.map.locate({setView: true, maxZoom: 15})
+          .on('locationerror', function(e) {console.log(e.message)});
       });
     </script>
   </body>

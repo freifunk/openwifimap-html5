@@ -3,7 +3,7 @@ var OWMWidget = function (options, couchmapoptions) {
   var options = L.extend({
     divId: 'map',
     getPopupHTML: function (nodedata) {return '<strong>'+nodedata.hostname+'</strong>';},
-    onBBOXChange: function () {}
+    onBboxChange: function () {}
   }, options);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
@@ -19,7 +19,6 @@ var OWMWidget = function (options, couchmapoptions) {
       var date = new Date();
       date.setHours(date.getHours() - 24*7);
       var nodedate = new Date(nodedata['mtime']);
-      console.log(nodedate)
       return nodedate > date;
     },
     linkAdd: function(node1, node2, layer) {
@@ -73,5 +72,11 @@ var OWMWidget = function (options, couchmapoptions) {
     .addTo(widget.map);
   widget.map.attributionControl.addAttribution('Nodes+Links &copy; <a href="http://openwifimap.net">OpenWiFiMap</a> contributors under <a href="http://opendatacommons.org/licenses/odbl/summary/">ODbL</a>');
 
+  widget.map.on('moveend', function() {
+      var b = widget.map.getBounds(),
+          sw = b.getSouthWest(),
+          ne = b.getNorthEast();
+      options.onBboxChange([sw.lat, sw.lng, ne.lat, ne.lng])
+  });
   return widget;
 }
