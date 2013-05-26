@@ -108,6 +108,9 @@ function validateNode(nodedata) {
             divId: 'mapdiv',
             onBboxChange: function(bbox) {
               onBboxChange(bbox.toString());
+            },
+            getPopupHTML: function(nodedata) {
+              return ich.mappopupmust(nodedata, true);
             }
           },
           {
@@ -265,7 +268,10 @@ function validateNode(nodedata) {
           detailpagemap = new OWMWidget(
               {
                 divId: 'detailmap',
-                onBboxChange: function(bboxstr) {}
+                onBboxChange: function(bboxstr) {},
+                getPopupHTML: function(nodedata) {
+                  return ich.mappopupmust(nodedata, true);
+                }
               },
               {
                 trackResize: false
@@ -276,7 +282,6 @@ function validateNode(nodedata) {
               }
             );
           detailpage.data('map', detailpagemap);
-          //'detailmap', getPopupHTML);
         } else {
           $("#detailmapcontainer").empty().append(mapdiv);
         }
