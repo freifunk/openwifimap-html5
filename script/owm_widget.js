@@ -5,7 +5,9 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
     getPopupHTML: function (nodedata) {return '<strong>'+nodedata.hostname+'</strong>';},
     onBboxChange: function () {}
   }, options);
-  var mapoptions = L.extend({}, mapoptions);
+  var mapoptions = L.extend({
+    worldCopyJump: true
+  }, mapoptions);
   var couchmapoptions = L.extend({
     nodeAdd: function(nodedata, layer) {
       return L.marker(nodedata.latlng, 
