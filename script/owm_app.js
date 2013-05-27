@@ -164,7 +164,15 @@ function validateNode(nodedata) {
   //////////////////////////////////////////////////////////
   // list page
   function listUpdate(data) {
-    $("#listdiv").empty().append( ich.listmust(data) );
+    var html;
+    if (!data) {
+      html = "<h3>No area selected! Go to the <a href=\"#map\">map</a> to find nodes.</h3>";
+    } else if (!data.nodes.length) {
+      html = "<h3>No nodes in selected area! Go to the <a href=\"#map\">map</a> to find nodes.</h3>";
+    } else {
+      html = ich.listmust(data);
+    }
+    $("#listdiv").empty().append(html);
     var listul = $("#listul");
     if (listul.hasClass('ui-listview')) {
       listul.listview('refresh');
@@ -193,7 +201,7 @@ function validateNode(nodedata) {
         listUpdate({bbox: bbox.toString(), nodes: nodes});
       });
     } else {
-      $("#listdiv").empty().append("<p>No area selected! Go to the <a href=\"#map\">map</a> to select an area.</p>");
+      listUpdate();
     }
   });
 
@@ -292,7 +300,7 @@ function validateNode(nodedata) {
         });
       });
     } else {
-      $("#detaildiv").empty().append("<p>No node selected! Go to the <a href=\"#map\">map</a> to select an area.</p>");
+      $("#detaildiv").empty().append("<h3>No node selected! Go to the <a href=\"#map\">map</a> to find nodes.</h3>");
     }
   });
 })();
