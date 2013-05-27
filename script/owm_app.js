@@ -132,8 +132,8 @@ function validateNode(nodedata) {
           var cur_height = $('#mapdiv').height();
           var new_height =
               $(window).height()
-              - $('#map div[data-role="header"]').height()
-              - $('#map div[data-role="footer"]').height();
+              - $('#map div[data-role="header"]').outerHeight()
+              - $('#map div[data-role="footer"]').outerHeight();
           $('#mapdiv').height( new_height );
           owmwidget.map.invalidateSize();
         }

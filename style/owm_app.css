@@ -20,7 +20,7 @@ div#container {
 #container > div[data-role="page"] > div[data-role="content"] {
     position: absolute;
     width: 100%;
-    top: 50px;
+    top: 54px;
     bottom: 61px;
     padding: 0;
     overflow: auto;
