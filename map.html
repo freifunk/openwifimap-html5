@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>OpenWiFiMap</title>
 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
@@ -28,7 +29,7 @@
   </head>
   <body style="margin: 0; margin: 0;">
     <script id="mappopupmust" type="text/html">
-      <a href="/#detail?node={{id}}" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b">
+      <a href="index.html#detail?node={{id}}" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b">
         <span class="ui-btn-inner ui-btn-corner-all">
           <span class="ui-btn-text">{{hostname}}</span>
         </span>
@@ -42,7 +43,9 @@
 
       $(document).ready(function() {
         var owmwidget = new OWMWidget(
-          {},
+          {
+            getPopupHTML: getPopupHTML
+          },
           {},
           {
             couchUrl: 'http://couch.pberg.freifunk.net/openwifimap_dev/_design/owm-api/',
