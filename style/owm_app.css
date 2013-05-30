@@ -73,3 +73,23 @@ table.fifty tr:nth-child(even) {
 .titlecont h2 {
     display: inline-block;
 }
+
+#about_contrib {
+  display: inline;
+}
+
+.gh-contrib {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.gh-contrib img {
+  vertical-align: middle;
+}
+
+.gh-avatar {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+}

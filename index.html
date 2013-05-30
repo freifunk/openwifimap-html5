@@ -56,6 +56,13 @@
         </span>
       </a>
     </script>
+    <script id="about_contrib_must" type="text/html">
+        {{#contributors}}
+          <div class="gh-contrib">
+            <a href="{{html_url}}" class="ui-link"><img class="gh-avatar" src="{{avatar_url}}" />{{login}}</a>,
+          </div>
+        {{/contributors}}
+    </script>
     <script id="mapiconsvg" type="text/html">
       <svg width="{{w}}" height="{{h}}">
         <defs>
@@ -297,19 +304,24 @@
                   <p>OpenWiFiMap is
                   <ul>
                     <li>free software licensed under the MIT License.</li>
-                    <li>available at <a href="https://github.com/andrenarchy/openwifimap">github</a>. Please submit code, bug reports or ideas for improvements there!</li>
-                    <li>meant to support free networks (free as in 'free speech', not 'free beer') like <a href="http://www.freifunk.net">freifunk</a>.</li>
-                    <li>a <a href="http://couchapp.org/page/index">CouchApp</a> and you can thus easily run your own instance by pushing it to your CouchDB server.</li>
-                    <li>written by <a href="https://twitter.com/andrenarchy">Andr&eacute; Gaul</a> with contributions from <a href="https://twitter.com/RhoTep">Andreas Pittrich</a> and <a href="https://twitter.com/PureSdrei">Daniel Pfisterer</a>.</li>
+                    <li>available at <a href="https://github.com/freifunk/openwifimap-html5">github</a>. Please submit code, bug reports, feature requests or other ideas for improvements there!</li>
+                    <li>meant to support free networks (free as in <em>free speech</em>, not <em>free beer</em>) like <a href="http://www.freifunk.net">freifunk</a>.</li>
+                    <li>a HTML5 app that should run fine on mobile devices.</li>
+                    <li>is backed by <a href="http://couchdb.apache.org/">CouchDB</a>+<a href="https://github.com/couchbase/geocouch/">GeoCouch</a> and it can be easily run as a <a href="http://couchapp.org/page/index">CouchApp</a> on your own CouchDB server.</li>
+                    <li>written by:
+                      <div id="about_contrib">
+
+                      </div>
+                      with contributions from <a href="https://twitter.com/RhoTep">Andreas Pittrich</a> and <a href="https://twitter.com/ProtectorP">Daniel Pfisterer</a>.</li>
                   </ul>
                   The WiFi icon was created by <a href="http://commons.wikimedia.org/wiki/User:Canopus49">Canopus49</a> and is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA</a>.
                   </p>
                   <p>
                   Donate with flattr:
-                  <a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://openwifimap.net"></a>
-                  <noscript><a href="http://flattr.com/thing/1154333/OpenWiFiMap" target="_blank">
+                  <a class="FlattrButton" style="display:none;" data-flattr-popout="0" data-flattr-button="compact" href="http://openwifimap.net"></a>
+                  <!--noscript><a href="http://flattr.com/thing/1154333/OpenWiFiMap" target="_blank" data-flattr-popout="0">
                       <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
-                  </a></noscript>
+                  </a></noscript-->
                   </p>
                   <a data-role="button" onclick="$('#about').popup( 'close' )" data-theme="b">Close</a>
                 </div>

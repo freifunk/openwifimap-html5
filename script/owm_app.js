@@ -158,6 +158,12 @@ function validateNode(nodedata) {
 
       owmwidget.map.fitBounds(bbox);
     }
+
+    $.getJSON("https://api.github.com/repos/freifunk/openwifimap-html5/contributors",
+        function (data) {
+          var html = ich.about_contrib_must({contributors:data}, true);
+          $("#about_contrib").empty().append(html);
+        });
   });
 
 
