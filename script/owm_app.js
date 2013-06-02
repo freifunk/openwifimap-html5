@@ -142,7 +142,8 @@ function validateNode(nodedata) {
       onResize();
 
       if (!bbox) {
-        owmwidget.map.locate({setView: true, maxZoom: 15});
+        owmwidget.map.locate({setView: true, maxZoom: 15})
+          .on('locationerror', function(e) {console.log(e.message)});
       }
     }
 
