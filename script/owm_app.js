@@ -197,7 +197,12 @@ function validateNode(nodedata) {
     if (bbox) {
       $("a#maplink").attr("href", "#map?bbox=" + bbox.toString());
       var bboxlnglat = [latlng2lnglat(bbox[0]), latlng2lnglat(bbox[1])].toString();
-      $.getJSON(couchurl + '_spatial/nodes', { "bbox": bboxlnglat  }, function(data) {
+      $.getJSON(couchurl + '_spatial/nodes',
+        {
+          "bbox": bboxlnglat,
+          limit: 500 // note that due to the mtime check the actual
+                     // number of displayed nodes may be lower
+        }, function(data) {
         var nodes = [];
         for (var i=0; i<data.rows.length; i++) {
           var node = data.rows[i].value;
