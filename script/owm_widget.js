@@ -9,6 +9,9 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
     worldCopyJump: true
   }, mapoptions);
   var couchmapoptions = L.extend({
+    nodesUrl: 'view_nodes',
+    nodesUrlSpatial: 'view_nodes_spatial',
+    nodesUrlCoarse: 'view_nodes_coarse',
     nodeAdd: function(nodedata, layer) {
       return L.marker(nodedata.latlng, 
         {
