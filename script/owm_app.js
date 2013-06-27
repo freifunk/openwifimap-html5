@@ -81,7 +81,7 @@ function validateNode(nodedata) {
 }
 
 (function() {
-  var couchurl = 'http://couch.pberg.freifunk.net/openwifimap_dev/_design/owm-api/';
+  var couchurl = 'http://api.openwifimap.net';
 
   //////////////////////////////////////////////////////////
   // map page
@@ -197,7 +197,7 @@ function validateNode(nodedata) {
     if (bbox) {
       $("a#maplink").attr("href", "#map?bbox=" + bbox.toString());
       var bboxlnglat = [latlng2lnglat(bbox[0]), latlng2lnglat(bbox[1])].toString();
-      $.getJSON(couchurl + '_spatial/nodes',
+      $.getJSON(couchurl + 'view_nodes_spatial',
         {
           "bbox": bboxlnglat,
           limit: 500 // note that due to the mtime check the actual
@@ -259,7 +259,7 @@ function validateNode(nodedata) {
       node = pd.node;
     }
     if (node) {
-      $.getJSON(couchurl + '../../' + node, {}, function(data) {
+      $.getJSON(couchurl + 'db/' + node, {}, function(data) {
         var mapdiv = null;
         var detailpagemap = detailpage.data('map');
         if (detailpagemap) {
