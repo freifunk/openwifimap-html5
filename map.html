@@ -44,7 +44,10 @@
       $(document).ready(function() {
         var owmwidget = new OWMWidget(
           {
-            getPopupHTML: getPopupHTML
+            getPopupHTML: getPopupHTML,
+            onBboxChange: function(bbox) {
+              window.location.hash = 'bbox='+bbox.toString();
+            }
           },
           {},
           {
@@ -60,8 +63,21 @@
 
         $(window).resize( onResize );
         onResize();
-        owmwidget.map.locate({setView: true, maxZoom: 15})
-          .on('locationerror', function(e) {console.log(e.message)});
+
+        // determine bounding box from hash
+        var hash = window.location.hash;
+        var bbox = null;
+        if (hash.search(/#bbox=/)!=-1) {
+          bbox = getBboxFromString(hash.replace(/#bbox=/, ""));
+        }
+
+        // set location
+        if (bbox) {
+          owmwidget.fitBbox(bbox);
+        } else {
+          owmwidget.map.locate({setView: true, maxZoom: 15})
+            .on('locationerror', function(e) {console.log(e.message)});
+        }
       });
     </script>
   </body>

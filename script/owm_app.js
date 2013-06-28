@@ -54,20 +54,6 @@ function scanListsObj(obj) {
   }
 }
 
-function getBboxFromString(str) {
-  var arr = str.split(',');
-  var valid = false;
-  if ( arr.length >= 4 ) {
-    valid = true;
-    for ( i = 0; i < 4; i++ ) {
-      arr[i] = parseFloat(arr[i]);
-      valid = valid ? isFinite(arr[i]) : false;
-    }
-  }
-  arr = [[arr[0],arr[1]],[arr[2],arr[3]]];
-  return valid ? arr : null;
-}
-
 function latlng2lnglat(latlng) {
   return [latlng[1], latlng[0]];
 }
@@ -148,16 +134,7 @@ function validateNode(nodedata) {
     }
 
     if (bbox) {
-      // nasty hack: shrink the bbox a bit, so we don't zoom out
-      var h = bbox[1][0] - bbox[0][0];
-      var w = bbox[1][1] - bbox[0][1];
-      var eps = 0.05;
-      bbox[0][0] += eps*h;
-      bbox[0][1] += eps*w;
-      bbox[1][0] -= eps*h;
-      bbox[1][1] -= eps*w;
-
-      owmwidget.map.fitBounds(bbox);
+      owmwidget.fitBbox(bbox);
     }
 
     $.getJSON("https://api.github.com/repos/freifunk/openwifimap-html5/contributors",
