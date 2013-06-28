@@ -1,7 +1,5 @@
 # openwifimap-html5
 
-HTML5 map with data from a [OpenWiFiMap database](http://github.com/freifunk/openwifimap-api/)
+Visit the [full app](http://openwifimap.net/) or the stripped down [iframe version](http://openwifimap.net/map.html).
 
-# Demo
-
-Visit the [full app](http://freifunk.github.io/openwifimap-html5/) or the stripped down [iframe version](http://freifunk.github.io/openwifimap-html5/map.html).
+This is a HTML5 map with data from a [OpenWiFiMap database](http://github.com/freifunk/openwifimap-api/). If you want to submit nodes to the database, please take a look at the [OpenWiFiMap API documentation](https://github.com/freifunk/openwifimap-api/blob/master/API.md).
