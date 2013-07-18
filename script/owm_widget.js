@@ -35,17 +35,65 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
         return;
       }
 
-      return L.polyline([node1.data.latlng, node2.data.latlng],
-          {color: '#85e805'})
-        .bindPopup(
-            'distance '
+      var quality1 = -1;
+      var quality2 = -1;
+      // find qualities and pick best (does this make sense?)
+      if (node1.data.links) {
+        for (var i=0, link; link=node1.data.links[i++];) {
+          if (link.id == node2.data.id && link.quality) {
+            quality1 = link.quality;
+          }
+        }
+      }
+      if (node2.data.links) {
+        for (var i=0, link; link=node2.data.links[i++];) {
+          if (link.id == node1.data.id && link.quality) {
+            quality2 = link.quality;
+          }
+        }
+      }
+      // check out of bounds
+      function validate_quality(q) {
+        return Math.min(1, Math.max(0, q));
+      }
+      quality = validate_quality( Math.max(quality1, quality2) );
+
+      var color = '#00D500';
+      var opacity = 0.25 + 0.5*quality;
+      if (quality < 0.75) {
+        color = '#CCD500';
+      }
+      if (quality < 0.5) {
+        color = '#D5A200';
+      }
+      if (quality < 0.25) {
+        color = '#D50000';
+      }
+
+      html = '<h3>'
             + node1.data.hostname
             + ' ↔ '
             + node2.data.hostname
-            + ': <br>'
+            + '</h3>'
+            + '<strong>Distance:</strong> '
             + distance
-            + ' meters'
-        ).addTo(layer);
+            + 'm';
+      if (quality1 > -1) {
+        quality1 = validate_quality(quality1);
+        html += '<br><strong>Quality</strong> (as reported by '
+          + node1.data.hostname+'): '
+          + quality1;
+      }
+      if (quality2 > -1) {
+        quality2 = validate_quality(quality2);
+        html += '<br><strong>Quality</strong> (as reported by '
+          + node2.data.hostname+'): '
+          + quality2;
+      }
+
+      return L.polyline([node1.data.latlng, node2.data.latlng],
+          {color: color, opacity: opacity})
+        .bindPopup(html).addTo(layer);
     }
   }, couchmapoptions);
 
