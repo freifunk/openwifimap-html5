@@ -8,11 +8,36 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
   var mapoptions = L.extend({
     worldCopyJump: true
   }, mapoptions);
+  function getColor(val, bad, good) {
+    var colors = ['#D50000', '#D5A200', '#CCD500', '#00D500'];
+    var index = Math.floor( colors.length * (val - bad)/(good - bad) );
+    index = Math.max(0, Math.min(colors.length-1, index));
+    return colors[index];
+  }
   var couchmapoptions = L.extend({
     nodesUrl: 'view_nodes',
     nodesUrlSpatial: 'view_nodes_spatial',
     nodesUrlCoarse: 'view_nodes_coarse',
     nodeAdd: function(nodedata, layer) {
+      var mtime = new Date(nodedata.mtime);
+      var time = new Date();
+      var timediff = time-mtime;
+      if (timediff<0) {
+        timediff=0;
+      }
+      timediff /= 1000*60*60*24;
+      var color = getColor(timediff, 4, 0);
+
+      /* unfortunately, this does not work because markercluster
+       * seems to need a marker (and not a circleMarker)
+      return L.circleMarker(nodedata.latlng,
+        {
+          title: nodedata.hostname,
+          radius: 15,
+          color: color
+        })
+      .bindPopup(options.getPopupHTML(nodedata)).addTo(layer);
+      */
       return L.marker(nodedata.latlng,
         {
           title: nodedata.hostname,
@@ -58,17 +83,8 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
       }
       var quality = validate_quality( Math.max(quality1, quality2) );
 
-      var color = '#00D500';
+      var color = getColor(quality, 0, 1)
       var opacity = 0.25 + 0.5*quality;
-      if (quality < 0.75) {
-        color = '#CCD500';
-      }
-      if (quality < 0.5) {
-        color = '#D5A200';
-      }
-      if (quality < 0.25) {
-        color = '#D50000';
-      }
 
       var html = '<h3>'
             + node1.data.hostname
