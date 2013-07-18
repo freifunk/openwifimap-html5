@@ -78,7 +78,7 @@ function validateNode(nodedata) {
     if (pd && pd.bbox && typeof pd.bbox == "string") {
       bbox = getBboxFromString(pd.bbox);
     }
-    
+
     function onBboxChange(bboxstr) {
       var currentPageID = $.mobile.activePage == null ? 'map' : $.mobile.activePage.attr('id');
       if (currentPageID=='map') {
@@ -90,7 +90,7 @@ function validateNode(nodedata) {
     var owmwidget = mappage.data('owmwidget');
     if (!owmwidget) {
       owmwidget = new OWMWidget(
-          { 
+          {
             divId: 'mapdiv',
             onBboxChange: function(bbox) {
               onBboxChange(bbox.toString());
@@ -102,7 +102,7 @@ function validateNode(nodedata) {
           {
             trackResize: false
           },
-          { 
+          {
             couchUrl: couchurl, coarseThreshold: 500,
             nodeFilter: validateNode
           }
@@ -273,7 +273,7 @@ function validateNode(nodedata) {
               {
                 trackResize: false
               },
-              { 
+              {
                 couchUrl: couchurl, coarseThreshold: 100,
                 nodeFilter: validateNode
               }

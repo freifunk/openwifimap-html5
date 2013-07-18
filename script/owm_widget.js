@@ -13,7 +13,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
     nodesUrlSpatial: 'view_nodes_spatial',
     nodesUrlCoarse: 'view_nodes_coarse',
     nodeAdd: function(nodedata, layer) {
-      return L.marker(nodedata.latlng, 
+      return L.marker(nodedata.latlng,
         {
           title: nodedata.hostname,
           icon: L.icon( {iconUrl: 'images/node_circle.svg', iconSize: [30,30], iconAnchor: [15,15]})
@@ -35,7 +35,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
         return;
       }
 
-      return L.polyline([node1.data.latlng, node2.data.latlng], 
+      return L.polyline([node1.data.latlng, node2.data.latlng],
           {color: '#85e805'})
         .bindPopup(
             'distance '
@@ -48,9 +48,9 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
         ).addTo(layer);
     }
   }, couchmapoptions);
-  
+
   widget.map = L.map(options['divId'], mapoptions);
-  
+
   var tile_cloudmade = L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
       key: 'e4e152a60cc5414eb81532de3d676261',
       styleId: 997,
@@ -58,10 +58,10 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
       }).addTo( widget.map );
   // https://raw.github.com/shramov/leaflet-plugins/master/layer/tile/Bing.js
   var tile_bing = new L.BingLayer("ArewtcSllazYp52r7tojb64N94l-OrYWuS1GjUGeTavPmJP_jde3PIdpuYm24VpR");
-  
+
   var couchmap = new L.CouchMap(couchmapoptions);
   var couchlayers = couchmap.getLayers();
-  
+
   widget.map.addLayer(couchlayers['nodes']).addLayer(couchlayers['links']);
   widget.control_layers = L.control.layers(
       {
