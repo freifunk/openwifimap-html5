@@ -56,7 +56,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
       function validate_quality(q) {
         return Math.min(1, Math.max(0, q));
       }
-      quality = validate_quality( Math.max(quality1, quality2) );
+      var quality = validate_quality( Math.max(quality1, quality2) );
 
       var color = '#00D500';
       var opacity = 0.25 + 0.5*quality;
@@ -70,7 +70,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
         color = '#D50000';
       }
 
-      html = '<h3>'
+      var html = '<h3>'
             + node1.data.hostname
             + ' ↔ '
             + node2.data.hostname
