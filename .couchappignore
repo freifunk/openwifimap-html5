@@ -1,5 +1,9 @@
 [
-  ".git*",
+  "\\.git.*",
+  "_attachments/CNAME",
+  "_attachments/README.md",
+  "README.md",
+  ".*\\..*ignore",
   ".*\\.swp$",
   "maintenance"
 ]
