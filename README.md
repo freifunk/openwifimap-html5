@@ -13,3 +13,4 @@ cd openwifimap-html5-couchapp
 3. Adapt the `couchurl` variable in `_attachments/script/owm_app.js` and `_attachments/map.html` to point to your [OpenWiFiMap API](https://github.com/freifunk/openwifimap-api).
 4. Push it with the [couchapp](http://couchapp.org/page/index) or [erica](https://github.com/benoitc/erica) tool:
 `erica push http://USER:PASS@HOST/DBNAME`
+5. Create a vhost entry in CouchDBs configuration for nice URLs. Let's assume that the domain `awesomemap.net` points to your CouchDB. Then the config option with section `vhost`, option `awesomemap.net` and value `DBNAME/_design/owm-html5/_rewrite` lets you access the map via `http://awesomemap.net/` instead of `http://HOST/DBNAME/_design/owm-html5/index.html`.
