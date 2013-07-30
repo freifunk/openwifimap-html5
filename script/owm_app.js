@@ -128,8 +128,10 @@ function validateNode(nodedata) {
       onResize();
 
       if (!bbox) {
-        owmwidget.map.locate({setView: true, maxZoom: 15})
-          .on('locationerror', function(e) {console.log(e.message)});
+        owmwidget.map.fitWorld();
+        owmwidget.map.locate({setView: true, maxZoom: 15, timeout: 20000})
+          .on('locationerror', function(e) { console.log('location NOT found', e) })
+          .on('locationfound', function(e) { console.log('location found', e) });
       }
     }
 
