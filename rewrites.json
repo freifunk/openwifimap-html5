@@ -4,6 +4,14 @@
     "to": "index.html"
   },
   {
+    "from": "/api/*",
+    "to": "../../_design/owm-api/_rewrite/*",
+  },
+  {
+    "from": "/api/",
+    "to": "../../_design/owm-api/_rewrite/",
+  },
+  {
     "from": "*",
     "to": "*"
   }
