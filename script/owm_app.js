@@ -67,7 +67,7 @@ function validateNode(nodedata) {
 }
 
 (function() {
-  var couchurl = 'http://api.openwifimap.net/';
+  var couchurl = 'api/';
 
   //////////////////////////////////////////////////////////
   // map page
