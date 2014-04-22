@@ -115,10 +115,10 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
 
   widget.map = L.map(options['divId'], mapoptions);
 
-  var tile_cloudmade = L.tileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey={key}', {
-      key: '<fillInYouApiKey>',
+  var tile_lyrk = L.tileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey={key}', {
+      key: 'ce4ebc2a30064ca19ec3ccc898486c17',
       styleId: 997,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>'
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://lyrk.de/">Lyrk</a>'
       }).addTo( widget.map );
   // https://raw.github.com/shramov/leaflet-plugins/master/layer/tile/Bing.js
   var tile_bing = new L.BingLayer("ArewtcSllazYp52r7tojb64N94l-OrYWuS1GjUGeTavPmJP_jde3PIdpuYm24VpR");
@@ -129,7 +129,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
   widget.map.addLayer(couchlayers['nodes']).addLayer(couchlayers['links']);
   widget.control_layers = L.control.layers(
       {
-        "Cloudmade OSM": tile_cloudmade,
+        "Lyrk OSM": tile_lyrk,
         "Bing satellite": tile_bing
       },
       {

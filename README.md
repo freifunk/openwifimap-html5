@@ -18,3 +18,7 @@ If your installation is missing, feel free to add it or tell us by opening an is
 ## Submitting and querying data
 
 If you want to submit nodes to the database or if you want to query the database, please take a look at the [OpenWiFiMap API documentation](https://github.com/freifunk/openwifimap-api/blob/master/API.md).
+
+## License
+
+openwifimap-html5 is licensed under the [MIT license](http://opensource.org/licenses/MIT).
