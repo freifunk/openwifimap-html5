@@ -127,7 +127,14 @@
                             {{zip}} {{city}}<br/>
                             {{country}}
                         {{/postalAddress}}
-                        {{^postalAddress}}No address is stored for this node.{{/postalAddress}}
+                        {{#freifunk}}
+                          {{#contact}}
+                            <h4>Contact details</h4>
+                            {{name}} ({{nickname}})</br>
+                            {{location}}</br>
+                            {{mail}}
+                          {{/contact}}
+                        {{/freifunk}}
                         </p>
                         <a id="detailmapcenter" data-role="button" data-icon="home">Center map</a>
                     </div></div>
