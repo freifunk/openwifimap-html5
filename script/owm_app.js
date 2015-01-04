@@ -103,7 +103,7 @@ function validateNode(nodedata) {
             trackResize: false
           },
           {
-            couchUrl: couchurl, coarseThreshold: 500,
+            couchUrl: couchurl, coarseThreshold: 1000,
             nodeFilter: validateNode
           }
         );
@@ -276,7 +276,7 @@ function validateNode(nodedata) {
                 trackResize: false
               },
               {
-                couchUrl: couchurl, coarseThreshold: 100,
+                couchUrl: couchurl, coarseThreshold: 1000,
                 nodeFilter: validateNode
               }
             );
