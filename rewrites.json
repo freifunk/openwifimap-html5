@@ -1,0 +1,54 @@
+[
+    {
+        "from": "",
+        "to": "index.html"
+    },
+    {
+        "from": "map.html",
+        "to": "map.html"
+    },
+    {
+        "from": "images/*",
+        "to": "images/*"
+    },
+    {
+        "from": "style/*",
+        "to": "style/*"
+    },
+    {
+        "from": "external/*",
+        "to": "external/*"
+    },
+    {
+        "from": "_view/*",
+        "to": "_view/*"
+    },
+    {
+        "from": "_spatial/*",
+        "to": "_spatial/*"
+    },
+    {
+        "from": "script/*",
+        "to": "script/*"
+    },
+    {
+        "from": "images/*",
+        "to": "images/*"
+    },
+    {
+        "from": "openwifimap",
+        "to": "../../"
+    },
+    {
+        "from": "openwifimap/*",
+        "to": "../../*"
+    },
+    {
+      "from": "/api/*",
+      "to": "../../_design/owm-api/_rewrite/*"
+    },
+    {
+      "from": "/api/",
+      "to": "../../_design/owm-api/_rewrite/"
+    }
+]
