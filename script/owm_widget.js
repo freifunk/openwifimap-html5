@@ -115,7 +115,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
 
   widget.map = L.map(options['divId'], mapoptions);
 
-  var tile_lyrk = L.tileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey={key}', {
+  var tile_lyrk = L.tileLayer('https://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey={key}', {
       key: 'ce4ebc2a30064ca19ec3ccc898486c17',
       styleId: 997,
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://lyrk.de/">Lyrk</a>'
@@ -140,7 +140,7 @@ var OWMWidget = function (options, mapoptions, couchmapoptions) {
 
   widget.control_scale = L.control.scale({imperial: false, maxWidth: 150, position: 'bottomright'})
     .addTo(widget.map);
-  widget.map.attributionControl.addAttribution('Nodes+Links &copy; <a href="http://openwifimap.net">OpenWiFiMap</a> contributors under <a href="http://opendatacommons.org/licenses/odbl/summary/">ODbL</a>');
+  widget.map.attributionControl.addAttribution('Nodes+Links &copy; <a href="https://openwifimap.net">OpenWiFiMap</a> contributors under <a href="http://opendatacommons.org/licenses/odbl/summary/">ODbL</a>');
 
   widget.map.on('moveend', function() {
       var b = widget.map.getBounds(),
