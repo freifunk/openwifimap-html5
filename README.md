@@ -6,14 +6,7 @@ This is a HTML5 map app with data from a [OpenWiFiMap database](http://github.co
 
 ## HTML5 app installations
 
-Visit the main installation at [openwifimap.net](http://openwifimap.net/) or the stripped down version at [openwifimap.net/map.html](http://openwifimap.net/map.html) (e.g. for inclusion in other sites via iframe). 
-
-Of course, you can easily set up your own map! Here is a (possibly incomplete) list of installations:
-* [openwifimap.net](http://openwifimap.net/)
-* [map.pberg.freifunk.net](http://map.pberg.freifunk.net/)
-* [map.weimarnetz.de](http://map.weimarnetz.de/)
-
-If your installation is missing, feel free to add it or tell us by opening an issue.
+As currently there is no working database-backend, all maps are offline / non functional also. See https://github.com/freifunk/openwifimap-api/issues/9 for some additional details.
 
 ## Submitting and querying data
 
